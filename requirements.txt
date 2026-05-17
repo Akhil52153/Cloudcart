@@ -1,0 +1,8 @@
+langchain
+langchain-groq
+pydantic
+pyyaml
+rich
+python-dotenv
+pytest
+streamlit
