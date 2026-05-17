@@ -31,7 +31,7 @@ This enterprise-grade implementation demonstrates secure prompt management for a
 ### 1. Setup Environment
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/Akhil52153/Genai_agenticai_rag.git
 cd Genai_agenticai_rag
 
 # Create virtual environment
