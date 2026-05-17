@@ -32,7 +32,7 @@ This enterprise-grade implementation demonstrates secure prompt management for a
 ```bash
 # Clone the repository
 git clone https://github.com/your-username/your-repo-name.git
-cd genai-rag-agenticai/cloudcart
+cd Genai_agenticai_rag
 
 # Create virtual environment
 python -m venv venv
