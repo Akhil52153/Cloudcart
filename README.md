@@ -143,7 +143,7 @@ pytest --cov=src --cov-report=html
 ## Folder Structure
 
 ```
-cloudcart/
+Genai_agenticai_rag/
 ├── streamlit_app.py     # Interactive demo application
 ├── app.py              # Simple entry point
 ├── requirements.txt    # Python dependencies
