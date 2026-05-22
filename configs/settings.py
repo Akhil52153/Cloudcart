@@ -8,7 +8,7 @@ load_dotenv()
 
 # API Keys
 GROQ_API_KEY: Optional[str] = os.getenv("GROQ_API_KEY")
-TAVILY_API_KEY: Optional[str] = os.getenv("TAVILY_API_KEY")
+#TAVILY_API_KEY: Optional[str] = os.getenv("TAVILY_API_KEY")
 
 # LLM Configuration
 LLM_MODEL: str = "llama-3.1-8b-instant"

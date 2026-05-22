@@ -60,43 +60,82 @@ class PromptManager:
         """
         return build_chat_prompt(schema)
 
-    def invoke(self, prompt: ChatPromptTemplate, user_input: dict, schema: PromptSchema = None) -> str:
+    
+    def invoke(self,prompt: ChatPromptTemplate,user_input: dict,schema: PromptSchema = None,validation_input: dict = None) -> str:
         """
         Invoke the LLM with the compiled prompt.
 
         Args:
             prompt: The compiled prompt template
-            user_input: Dict with user input variables
-            schema: Optional PromptSchema to validate inputs against
+            user_input: Dict with final prompt input variables
+            schema: Optional PromptSchema for validation
+            validation_input: Raw user input for schema validation
 
         Returns:
-            LLM response content
-            
+         LLM response content
+
         Raises:
-            ValueError: If input validation against the schema fails
+            ValueError: If schema validation fails
         """
         # Validate inputs against schema if provided (Assignment C.3)
         if schema and hasattr(schema, 'input_schema'):
+
             input_schema = schema.input_schema
+
             required_fields = input_schema.get("required", [])
+
             properties = input_schema.get("properties", {})
-            
+
+            # Validate raw user input if provided,
+            # otherwise validate actual prompt input
+            validation_target = validation_input or user_input
+
             # Check required fields
             for req in required_fields:
-                if req not in user_input:
+
+                if req not in validation_target:
                     raise ValueError(f"Missing required input variable: {req}")
-            
+
             # Check property constraints (e.g., max_length)
-            for key, val in user_input.items():
+            for key, val in validation_target.items():
+
                 if key in properties:
                     max_len = properties[key].get("max_length")
+
                     if max_len and len(str(val)) > max_len:
-                        raise ValueError(f"Input '{key}' exceeds max_length of {max_len}")
-        
+                        raise ValueError( f"Input '{key}' exceeds max_length of {max_len}")
+
         llm = get_llm()
+
         chain = prompt | llm
+
         response = chain.invoke(user_input)
+
         return response.content
+
+
+        # # Validate inputs against schema if provided (Assignment C.3)
+        # if schema and hasattr(schema, 'input_schema'):
+        #     input_schema = schema.input_schema
+        #     required_fields = input_schema.get("required", [])
+        #     properties = input_schema.get("properties", {})
+            
+        #     # Check required fields
+        #     for req in required_fields:
+        #         if req not in user_input:
+        #             raise ValueError(f"Missing required input variable: {req}")
+            
+        #     # Check property constraints (e.g., max_length)
+        #     for key, val in user_input.items():
+        #         if key in properties:
+        #             max_len = properties[key].get("max_length")
+        #             if max_len and len(str(val)) > max_len:
+        #                 raise ValueError(f"Input '{key}' exceeds max_length of {max_len}")
+        
+        # llm = get_llm()
+        # chain = prompt | llm
+        # response = chain.invoke(user_input)
+        # return response.content
 
     def upgrade_current(self, new_version: str):
         """
