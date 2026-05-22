@@ -65,7 +65,6 @@ Create `.env` file in project root:
 
 ```env
 GROQ_API_KEY=your_groq_api_key_here
-TAVILY_API_KEY=your_tavily_api_key_here
 ```
 
 ---
@@ -76,11 +75,6 @@ TAVILY_API_KEY=your_tavily_api_key_here
 python database/init_db.py
 ```
 
-This creates:
-- SQLite database
-- orders table
-- order_items table
-- sample grounded order data
 
 ---
 
